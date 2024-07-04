@@ -10,6 +10,7 @@ const { router } = require('./routers/authentication.routers.js');
 
 // entities must to be with db.sync() function to create the table
 const { User } = require('./entities/users.entities.js');
+const { ErrorMiddleware } = require('./middlewares/errors.middlewares.js');
 
 
 class App {
@@ -21,6 +22,7 @@ class App {
         this.connectToDatabase();
         this.initializeMiddlewares();
         this.initializeRoutes();
+        this.initializeErrorHandling();
  }
 
  listen() {
@@ -57,6 +59,10 @@ async connectToDatabase() {
   
   initializeRoutes() {
     this.app.use("", router);
+  }
+
+  initializeErrorHandling() {
+    this.app.use(ErrorMiddleware);
   }
 }
 
