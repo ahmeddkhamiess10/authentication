@@ -5,4 +5,5 @@ const { signupSchema } = require("../validation/validation");
 const router = express.Router();
 
 router.post("/signup",validate(signupSchema,'body'),authenticationController.signUp);
+router.post("/login", authenticationController.login);
 module.exports={router}

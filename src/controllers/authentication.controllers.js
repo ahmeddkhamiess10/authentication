@@ -1,4 +1,4 @@
-const { signUpService } = require("../services/authentication.services");
+const { signUpService, loginService } = require("../services/authentication.services");
 
 const signUp =async (req,res)=>{
     try {
@@ -10,4 +10,16 @@ const signUp =async (req,res)=>{
     }
    
 }
-module.exports = {signUp}
+
+const login =async (req , res) => {
+    try {
+        const {email , password} =  req.body ; 
+        const loginResponse = await loginService(email , password);
+        res.status(200).cookie('jwt' , loginResponse.token , {httpOnly:true , maxAge : 24 * 60 * 60 * 1000}).json({message : "Logged in Succesfully" , data:loginResponse.data});
+        
+    } catch (err) {
+        res.status(400).json({ error : err.message });
+     }
+
+}
+module.exports = {signUp , login}

@@ -43,4 +43,27 @@ const signUpService = async (data) => {
         throw err;
     }
 }
-module.exports={signUpService}
+
+const loginService = async (email , password) => {
+    try {
+        const emailExists = await User.findOne({ where : {email}});
+        if (emailExists) {
+            const checkPassword = await bcrypt.compare(password , emailExists.password);
+            if (checkPassword) {
+                const token = createToken(emailExists.userId);
+
+                return {token  ,message : "logged in succesfully",data : emailExists.dataValues };
+            } else {
+                throw { message : "incorrect email/password" };
+            }
+        }
+        else{
+            throw new Error("incorrect email/password");
+        }
+    } catch (err) {
+        throw err
+    }
+
+
+}
+module.exports={signUpService,loginService}
