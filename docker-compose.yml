@@ -1,27 +1,22 @@
-version: '3.8'
-
 services:
   app:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    build: .
     ports:
       - "3000:3000"
-    environment:
-      PORT: ${PORT}
-      DB_HOST: ${DB_HOST}
-      DB_PORT: ${DB_PORT}
-      DB_USER: ${DB_USER}
-      DB_PASSWORD: ${DB_PASSWORD}
-      DB_DATABASE: ${DB_DATABASE}
     depends_on:
       - db
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_USER: postgres
+      DB_PASSWORD: 123456789
+      DB_DATABASE: postgres
+      HASH_SALT_ROUNDS: 10
 
   db:
-    image: postgres:latest
+    image: postgres
+    restart: always
     environment:
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
-      POSTGRES_USER: ${DB_USER}
-      POSTGRES_DB: ${DB_DATABASE}
-    ports:
-      - "5432:5432"
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123456789

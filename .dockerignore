@@ -1,1 +1,18 @@
 node_modules
+.git
+.DS_Store
+Thumbs.db
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+dist
+coverage
+docs
+test
+# Exclude specific Git-related files and directories
+*.sample    # Exclude all sample files
+index       # Exclude the 'index' file if you don't need it
+exclude     # Exclude the 'exclude' file if you don't need it
+HEAD        # Exclude the 'HEAD' file if you don't need it
+master      # Exclude the 'master' file if you don't need it

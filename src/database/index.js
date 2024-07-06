@@ -8,7 +8,13 @@ const db =  new Sequelize({
     port : DB_PORT , 
     password : DB_PASSWORD ,
     database : DB_DATABASE ,
-    logging : false
+    logging: false,
+//   dialectOptions: {
+//     // ssl: {
+//     //   require: true, // This is a security feature to ensure that the connection is encrypted.
+//     //   rejectUnauthorized: false, // It's important to handle SSL verification securely in production environments.
+//     // },
+//   },
 })
 
 module.exports = { db };
