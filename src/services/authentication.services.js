@@ -48,7 +48,7 @@ const loginService = async (email , password) => {
     try {
         const emailExists = await User.findOne({ where : {email}});
         if (emailExists) {
-            const checkPassword = await bcrypt.compare(password , emailExists.password);
+            const checkPassword = await bcrypt.compare(password , emailExists.password);   
             if (checkPassword) {
                 const token = createToken(emailExists.userId);
 
@@ -67,3 +67,4 @@ const loginService = async (email , password) => {
 
 }
 module.exports={signUpService,loginService}
+
