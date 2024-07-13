@@ -8,5 +8,5 @@ const router = express.Router();
 
 router.post("/signup",validate(signupSchema,'body'),authenticationController.signUp);
 router.post("/login", authenticationController.login);
-router.get("/getUsers",AuthMiddleware,getUsers)
-module.exports={router}
+router.get("/getUsers",AuthMiddleware,getUsers);
+module.exports={router};

@@ -1,10 +1,10 @@
+version: '3.8'
+
 services:
   app:
-    build: .
+    image: ahmedkhamis10/my_app:1.0
     ports:
       - "3000:3000"
-    depends_on:
-      - db
     environment:
       DB_HOST: db
       DB_PORT: 5432
@@ -12,11 +12,20 @@ services:
       DB_PASSWORD: 123456789
       DB_DATABASE: postgres
       HASH_SALT_ROUNDS: 10
+    depends_on:
+      db:
+        condition: service_healthy  # Wait for db service to be healthy
 
   db:
     image: postgres
-    restart: always
+    ports:
+      - "5432:5432"
     environment:
-      POSTGRES_DB: postgres
-      POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 123456789
+      POSTGRES_USER: postgres
+      POSTGRES_DB: postgres
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]  # Health check command
+      interval: 2s  # Check every 10 seconds
+      retries: 1    # Retry 5 times before giving up
+
